@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import MenuItemProfile from "./MenuItemProfile";
+
 const menus = [
    {
       title: "my information",
@@ -12,6 +15,14 @@ const menus = [
 ];
 
 function MenuListProfile() {
+   const { user } = useAuth();
+   if (user.roll === "admin" && menus.length < 3) {
+      menus.push({
+         title: "admin",
+         to: "/profile/admin",
+      });
+   }
+   console.log(user.roll);
    const { pathname } = useLocation();
    return (
       <div className="flex flex-col justify-between gap-15">

@@ -3,6 +3,7 @@ import Password from "./Password";
 import Username from "./Username";
 import Address from "./Address";
 import Footer from "../layout/Footer";
+import AdminPage from "./admin/AdminPage";
 
 function ProfileContainer() {
    const { pathname } = useLocation();
@@ -17,6 +18,11 @@ function ProfileContainer() {
          {pathname === "/profile/address" && (
             <div className="flex flex-col max-w-7xl mt-10">
                <Address />
+            </div>
+         )}
+         {pathname === "/profile/admin" && (
+            <div className="flex flex-col max-w-7xl mt-10">
+               <AdminPage />
             </div>
          )}
       </>

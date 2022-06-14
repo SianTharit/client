@@ -7,23 +7,12 @@ import { Icon } from "../../common/Icon";
 import { Input } from "../../form/Input";
 import { useAuth } from "../../../contexts/AuthContext";
 import Dropdown from "./Dropdown";
+import { useCart } from "../../../contexts/CartContext";
 
 const titles = [
    {
-      title: "MEN",
-      to: "/products/men",
-   },
-   {
-      title: "WOMEN",
-      to: "/products/women",
-   },
-   {
-      title: "KIDS",
-      to: "/products/kids",
-   },
-   {
-      title: "JORDAN",
-      to: "/products/jordan",
+      title: "All Products",
+      to: "/allProducts",
    },
 ];
 
@@ -31,7 +20,8 @@ function NavList() {
    const { pathname } = useLocation();
    const [search, setSearch] = useState(false);
    const { user } = useAuth();
-   console.log(pathname);
+   const { amount } = useCart();
+   // console.log(pathname);
 
    const handleSearch = () => {
       setSearch((prev) => !prev);
@@ -71,8 +61,14 @@ function NavList() {
                   </form>
                </div>
             )}
-            <Link to="cart">
+            <Link to="/cart">
                <Icon icon={<ShoppingCartIcon />} />
+            </Link>
+            <Link
+               to="/cart"
+               className="absolute rounded-full colorGreen right-[124px] top-3 text-white w-6 h-6 text-center shadow-xl"
+            >
+               {amount ? `${amount}` : "0"}
             </Link>
             {!user ? (
                <Link to="/login">

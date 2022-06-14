@@ -11,7 +11,6 @@ const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
    const [user, setUser] = useState("");
-   const [admin, setAdmin] = useState(null);
    const navigate = useNavigate();
 
    // get TOKEN from localStorage
@@ -21,6 +20,7 @@ function AuthContextProvider({ children }) {
             const token = getAccessToken();
             if (token) {
                const resMe = await axios.get("/users/me");
+               console.log(resMe.data.user);
                setUser(resMe.data.user);
             }
          } catch (err) {

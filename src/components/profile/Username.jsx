@@ -24,7 +24,6 @@ function Username() {
                   </span>
                   <EditInfo />
                </div>
-               <hr />
                <div className="grid grid-cols-5 items-center">
                   <h2>Phone number :</h2>
                   <p className="grid col-span-3">{phoneNumber || ""}</p>

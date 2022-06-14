@@ -4,7 +4,7 @@ function CardType({ el }) {
    const { src, title, to } = el;
    const navigate = useNavigate();
    return (
-      <div className="relative" onClick={() => navigate("/product/" + to)}>
+      <div className="relative" onClick={() => navigate("/" + to)}>
          <img
             src={src}
             alt="type"

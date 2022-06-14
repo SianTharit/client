@@ -13,9 +13,6 @@ function Address() {
                <Icon icon={<HomeIcon />} />
                <h1>My Address</h1>
             </div>
-            <div>
-               <AddAddress />
-            </div>
          </div>
          <p className="text-lightGray">you can edit your address</p>
          <hr />

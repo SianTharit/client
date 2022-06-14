@@ -1,5 +1,7 @@
+import CartContainer from "../components/cart/CartContainer";
+
 function CartPage() {
-    return <div>CartPage</div>;
+   return <CartContainer />;
 }
 
 export default CartPage;

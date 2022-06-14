@@ -21,7 +21,7 @@ function UserContextProvider({ children }) {
             if (token) {
                const resMe = await axios.get("/users/me");
                setUser(resMe.data.user);
-               console.log(resMe.data);
+               // console.log(resMe.data);
             }
          } catch (err) {
             removeAccessToken();
@@ -29,11 +29,10 @@ function UserContextProvider({ children }) {
          }
       };
       fetchUser();
-   }, []);
+   }, [navigate]);
 
    const EditUser = async (firstName, lastName, phoneNumber, address) => {
       try {
-         console.log(firstName);
          const resEdit = await axios.put("/users/" + user.id, {
             firstName,
             lastName,
