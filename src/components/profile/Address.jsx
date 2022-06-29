@@ -1,17 +1,20 @@
 import { HomeIcon } from "@heroicons/react/outline";
 import { Icon } from "../common/Icon";
 import { useUser } from "../../contexts/UserContext";
-import { AddAddress, EditAddress } from "../ui/Modals";
+import { EditAddress } from "../../components/profile/editingInfo/EditInformation";
 
 function Address() {
    const { user } = useUser();
    const { address, firstName, lastName, phoneNumber } = user;
    return (
-      <div className="flex flex-col gap-y-5 border-2 p-4 shadow-md rounded-xl">
+      <div className="flex flex-col gap-y-5 border-2 p-4 shadow-md rounded-xl relative">
          <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
                <Icon icon={<HomeIcon />} />
                <h1>My Address</h1>
+               <div className="absolute right-3 top-3">
+                  <EditAddress />
+               </div>
             </div>
          </div>
          <p className="text-lightGray">you can edit your address</p>
@@ -35,7 +38,6 @@ function Address() {
                      <p className="grid col-span-2">{address || ""}</p>
                   </div>
                </div>
-               <EditAddress />
                <hr />
             </div>
          </div>

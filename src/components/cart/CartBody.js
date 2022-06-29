@@ -5,6 +5,7 @@ import NoItemInCart from "./NoItemInCart";
 function CartBody() {
    const { cart } = useCart();
 
+   console.log(cart);
    if (cart?.length === 0) {
       return <NoItemInCart />;
    } else {
@@ -16,7 +17,7 @@ function CartBody() {
                      key={item.id}
                      name={item.Product.name}
                      id={item.id}
-                     image={item.Product.ProductImages[0].image}
+                     image={item.Product.ProductImages[0]?.image}
                      price={item.Product.price * (1 - item.Product.discount)}
                      amount={item.amount}
                   />

@@ -62,7 +62,9 @@ function LoginForm({ setType }) {
                      rounded="md"
                      icon={<LockClosedIcon />}
                   />
-                  <SubmitButton>Sign In</SubmitButton>
+                  <SubmitButton className="orgColor font-bold rounded-md p-2 shadow-md text-white hover:translate-y-1 duration-75 mb-2">
+                     Sign In
+                  </SubmitButton>
                   <div className="flex justify-between items-center">
                      <hr className="hr" />
                      <p className=" mr-3 ml-3 text-gray-light-dash">OR</p>

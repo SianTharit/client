@@ -6,7 +6,7 @@ function PaymentSum() {
    return (
       <div className="flex flex-col justify-center items-center gap-5 mt-3">
          <h1 className="text-org-main">Make Payment</h1>
-         <h2>Total Amount: {`$${formatNumber(total)}`}</h2>
+         <h2>Total Amount: {`$${formatNumber(total.toFixed(2))}`}</h2>
       </div>
    );
 }

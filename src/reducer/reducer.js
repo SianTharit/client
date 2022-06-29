@@ -15,6 +15,15 @@ const reducer = (state, action) => {
       return {
          ...state,
          cart: state.cart.filter((item) => item.id !== action.payload),
+         amount: state.cart.amount,
+      };
+   }
+
+   if (action.type === "CLEAR_ITEM") {
+      return {
+         cart: [],
+         total: 0,
+         amount: 0,
       };
    }
 
@@ -80,9 +89,20 @@ const reducer = (state, action) => {
    }
 
    if (action.type === "ADD_TO_CART") {
+      console.log(state.cart);
+      console.log(action.payload);
+      console.log(state.total, "total ja");
       return {
          ...state,
+         // total
          cart: [...state.cart, action.payload],
+         // total: state.cart[0]
+         //    ? Number(state.total) +
+         //      Number(
+         //         state.cart[0]?.Product.price *
+         //            (1 - Number(state.cart[0]?.Product.discount))
+         //      )
+         //    : state.total,
          amount: state.amount++,
       };
    }

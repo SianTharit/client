@@ -16,7 +16,7 @@ function CartItem(item) {
                </div>
             </div>
             <div className="gird col-start-5 p-2 justify-center">
-               {`$${formatNumber(price)}`}
+               {`$${formatNumber(price.toFixed(2))}`}
             </div>
             <div className="gird justify-center col-start-6 p-2">
                <div className="grid grid-cols-3">
@@ -41,7 +41,7 @@ function CartItem(item) {
                </div>
             </div>
             <div className="grid justify-center col-start-7 p-2">
-               <h3>{`$${formatNumber(price * amount)}`}</h3>
+               <h3>{`$${formatNumber((price * amount).toFixed(2))}`}</h3>
             </div>
             <XIcon
                className="w-6 h-6 cursor-pointer"

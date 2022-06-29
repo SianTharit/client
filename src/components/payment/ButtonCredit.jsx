@@ -1,3 +1,5 @@
+import axios from "../../config/axios";
+import { useEffect } from "react";
 import Script from "react-load-script";
 import { useAuth } from "../../contexts/AuthContext";
 import { useCart } from "../../contexts/CartContext";
@@ -5,9 +7,11 @@ import { useCart } from "../../contexts/CartContext";
 let OmiseCard;
 
 function ButtonCredit({ createCreditCardCharge }) {
-   const { total } = useCart();
+   const { total, cart, createOrder } = useCart();
    const { user } = useAuth();
 
+   console.log("state test");
+   console.log(cart);
    const handleLoadScript = () => {
       console.log(window.Omise);
       OmiseCard = window.OmiseCard;
@@ -45,6 +49,7 @@ function ButtonCredit({ createCreditCardCharge }) {
       e.preventDefault(); // ป้องกัน page load
       creditCardConfigure();
       omiseCartHandler();
+      createOrder(total, cart);
    };
 
    return (
@@ -59,6 +64,7 @@ function ButtonCredit({ createCreditCardCharge }) {
                type="button"
                className=" bg-org-main p-2 rounded-xl cursor-pointer text-center text-white hover:bg-org-dark"
                onClick={handleClick}
+               disabled={total === 0}
             >
                Pay with Credit Card
             </button>

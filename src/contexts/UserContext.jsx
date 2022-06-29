@@ -21,7 +21,6 @@ function UserContextProvider({ children }) {
             if (token) {
                const resMe = await axios.get("/users/me");
                setUser(resMe.data.user);
-               // console.log(resMe.data);
             }
          } catch (err) {
             removeAccessToken();
@@ -45,8 +44,24 @@ function UserContextProvider({ children }) {
       }
    };
 
+   const EditPassword = async (
+      oldPassword,
+      newPassword,
+      confirmNewPassword
+   ) => {
+      try {
+         const res = await axios.put("/users/updatePassword/" + user.id, {
+            oldPassword,
+            newPassword,
+            confirmNewPassword,
+         });
+      } catch (err) {
+         console.log(err);
+      }
+   };
+
    return (
-      <UserContext.Provider value={{ user, setUser, EditUser }}>
+      <UserContext.Provider value={{ user, setUser, EditUser, EditPassword }}>
          {children}
       </UserContext.Provider>
    );

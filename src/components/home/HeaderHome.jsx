@@ -9,7 +9,7 @@ function HeaderHome() {
             <h2>Free Delivery for you</h2>
             <small
                className="underline hover:text-org-main cursor-pointer"
-               onClick={() => navigate("/product")}
+               onClick={() => navigate("/allProducts")}
             >
                view more items
             </small>

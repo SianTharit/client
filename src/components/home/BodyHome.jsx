@@ -1,9 +1,12 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../contexts/ModalContext";
 import { useProduct } from "../../contexts/ProductContext";
 import BlockTime from "../common/BlockTime";
 import CardType from "../common/CardType";
 import ProductCard from "../common/ProductCard";
 import Spinner from "../common/Spinner";
+import Modal from "../ui/Modal";
 
 // const product = [
 //    {
@@ -91,10 +94,49 @@ const Types = [
 function BodyHome() {
    const navigate = useNavigate();
    const { products, loading } = useProduct();
-   // const { discount } = products;
-   console.log(products);
-   // console.log(discount);
-   // console.log(products);
+   const [timerDays, setTimerDays] = useState();
+   const [timerHours, setTimerHours] = useState();
+   const [timerMinutes, setTimerMinutes] = useState();
+   const [timerSeconds, setTimerSeconds] = useState();
+   const [show, setShow] = useState(false);
+
+   let interval;
+
+   const startTimer = () => {
+      const countDownDate = new Date("June 30, 2022").getTime();
+      console.log(countDownDate);
+
+      interval = setInterval(() => {
+         const now = new Date().getTime();
+         const distance = countDownDate - now;
+
+         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+         const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+         );
+
+         const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+         );
+
+         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+         if (distance < 0) {
+            //stop timer
+            clearInterval(interval.current);
+         } else {
+            // Update Timer
+            setTimerDays(days);
+            setTimerHours(hours);
+            setTimerMinutes(minutes);
+            setTimerSeconds(seconds);
+         }
+      }, 1000);
+   };
+
+   useEffect(() => {
+      startTimer();
+   }, []);
 
    return (
       <>
@@ -108,10 +150,12 @@ function BodyHome() {
                      <small>Time out</small>
                   </div>
                   <div className="flex gap-2">
-                     <BlockTime time="02" title="Day" />
-                     <BlockTime time="02" title="Hour" />
-                     <BlockTime time="02" title="Minute" />
-                     <BlockTime time="02" title="Second" />
+                     <BlockTime
+                        timerDays={timerDays}
+                        timerHours={timerHours}
+                        timerMinutes={timerMinutes}
+                        timerSeconds={timerSeconds}
+                     />
                   </div>
                </div>
             </div>
@@ -119,7 +163,15 @@ function BodyHome() {
             {/* ======================= CardProduct ===================== */}
 
             <div className="grid grid-cols-3 gap-2">
-               {loading && <Spinner />}
+               {loading && (
+                  <Modal
+                     setShow={setShow}
+                     showModal={loading}
+                     // onClose={closeLoading}
+                  >
+                     <Spinner />
+                  </Modal>
+               )}
                {products.map((el) => {
                   if (el.discount > 0) {
                      return (

@@ -6,7 +6,7 @@ const ProductContext = createContext();
 
 function ProductContextProvider({ children }) {
    const [products, setProducts] = useState([]);
-   const [productById, setProductById] = useState([]);
+   const [productById, setProductById] = useState({});
    const [image, setImage] = useState([]);
    const [productName, setProductName] = useState("");
    const [productPrice, setProductPrice] = useState("");
@@ -15,6 +15,7 @@ function ProductContextProvider({ children }) {
    const [productAmount, setProductAmount] = useState("");
    const [productSize, setProductSize] = useState("");
    const [loading, setLoading] = useState(false);
+   const [searchTerm, setSearchTerm] = useState("");
    const navigate = useNavigate();
 
    const fetchProducts = async () => {
@@ -45,7 +46,7 @@ function ProductContextProvider({ children }) {
          formData.append("name", productName);
          formData.append("price", productPrice);
          formData.append("description", productDescription);
-         formData.append("discount", productDiscount);
+         formData.append("discount", productDiscount / 100);
          formData.append("amount", productAmount);
          formData.append("size", productSize);
          const res = await axios.post("/products/create", formData);
@@ -60,10 +61,34 @@ function ProductContextProvider({ children }) {
       }
    };
 
+   const handleSubmitTerm = async () => {
+      try {
+         await axios.get("/products/search");
+      } catch (err) {
+         console.log(err);
+      }
+   };
+
    const handleClickDelete = async (id) => {
       try {
          setLoading(true);
          await axios.delete("/products/" + id);
+         fetchProducts();
+      } catch (err) {
+         console.log(err);
+      } finally {
+         setLoading(false);
+      }
+   };
+
+   const editProduct = async (id, name, price, discount) => {
+      try {
+         setLoading(true);
+         await axios.put(`products/${id}/edit`, {
+            name,
+            price,
+            discount: discount / 100,
+         });
          fetchProducts();
       } catch (err) {
          console.log(err);
@@ -89,6 +114,10 @@ function ProductContextProvider({ children }) {
             setProductPrice,
             handleClickDelete,
             loading,
+            editProduct,
+            handleSubmitTerm,
+            searchTerm,
+            setSearchTerm,
          }}
       >
          {children}

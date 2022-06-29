@@ -10,7 +10,7 @@ function CartCheckOut() {
             <div className="flex flex-col space-y-2">
                <div className=" flex justify-between">
                   <h3>Subtotal</h3>
-                  <h3>{`$${formatNumber(total)}`}</h3>
+                  <h3>{`$${formatNumber(total.toFixed(2))}`}</h3>
                </div>
                <div className=" flex justify-between">
                   <h3>Shipping fee</h3>
@@ -25,7 +25,7 @@ function CartCheckOut() {
             <div className="flex flex-col space-y-2 mt-4">
                <div className="flex justify-between">
                   <h2>TOTAL</h2>
-                  <h3>{`$${formatNumber(total)}`}</h3>
+                  <h3>{`$${formatNumber(total.toFixed(2))}`}</h3>
                </div>
                <button
                   className="py-2 bg-org-main text-white"

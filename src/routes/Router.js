@@ -9,26 +9,30 @@ import ProductDetail from "../pages/ProductDetail";
 import CartPage from "../pages/CartPage";
 import Sidebar from "../components/profile/sidebar/SidebarProfile";
 import AllProductsPage from "../pages/AllProductsPage";
+import ModalContextProvider from "../contexts/ModalContext";
 
 function Router() {
    return (
-      <Routes>
-         <Route path="/" element={<AuthLayout />}>
-            <Route path="" element={<HomePage />} />
-            <Route path="profile" element={<Sidebar />}>
-               <Route path="" element={<ProfilePage />} />
-               <Route path="address" element={<ProfilePage />} />
-               <Route path="admin" element={<ProfilePage />} />
+      <ModalContextProvider>
+         <Routes>
+            <Route path="/" element={<AuthLayout />}>
+               <Route path="" element={<HomePage />} />
+               <Route path="profile" element={<Sidebar />}>
+                  <Route path="" element={<ProfilePage />} />
+                  <Route path="address" element={<ProfilePage />} />
+                  <Route path="admin" element={<ProfilePage />} />
+                  <Route path="order" element={<ProfilePage />} />
+               </Route>
+               <Route path="allProducts" element={<AllProductsPage />} />
+               <Route path="products" element={<ProductPage />}>
+                  <Route path=":productId" element={<ProductDetail />} />
+               </Route>
+               <Route path="checkout" element={<PaymentPage />} />
+               <Route path="cart" element={<CartPage />} />
+               <Route path="login" element={<LoginPage />} />
             </Route>
-            <Route path="allProducts" element={<AllProductsPage />} />
-            <Route path="products" element={<ProductPage />}>
-               <Route path=":productId" element={<ProductDetail />} />
-            </Route>
-            <Route path="checkout" element={<PaymentPage />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="login" element={<LoginPage />} />
-         </Route>
-      </Routes>
+         </Routes>
+      </ModalContextProvider>
    );
 }
 

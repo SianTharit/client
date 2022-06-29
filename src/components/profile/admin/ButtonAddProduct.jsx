@@ -14,7 +14,7 @@ function ButtonAddProduct() {
          >
             clear photos
          </button>
-         {!image.length ? (
+         {!image?.length ? (
             <label className=" bg-slate-300 p-5 col-span-2 grid grid-flow-row row-span-6 rounded-xl shadow-md">
                <input
                   type="file"

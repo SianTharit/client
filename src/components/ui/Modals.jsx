@@ -155,7 +155,10 @@ export function EditInfo() {
 // ============================================================================================ //
 
 export function EditPassword() {
-   let [isOpen, setIsOpen] = useState(false);
+   const [isOpen, setIsOpen] = useState(false);
+   const [oldPassword, setPassword] = useState();
+   const [newPassword, setNewPassword] = useState();
+   const [confirmPassword, setConfirmPassword] = useState();
 
    function closeModal() {
       setIsOpen(false);

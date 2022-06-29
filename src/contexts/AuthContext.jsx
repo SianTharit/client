@@ -69,13 +69,6 @@ function AuthContextProvider({ children }) {
       setUser(null);
    };
 
-   const loginAdmin = async (username, password) => {
-      try {
-      } catch (err) {
-         console.log(err);
-      }
-   };
-
    return (
       <AuthContext.Provider value={{ login, signUp, logout, user }}>
          {children}

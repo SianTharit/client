@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavItem from "./NavItem";
 import { ShoppingCartIcon, SearchIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { Input } from "../../form/Input";
 import { useAuth } from "../../../contexts/AuthContext";
 import Dropdown from "./Dropdown";
 import { useCart } from "../../../contexts/CartContext";
+import { useProduct } from "../../../contexts/ProductContext";
 
 const titles = [
    {
@@ -21,6 +22,8 @@ function NavList() {
    const [search, setSearch] = useState(false);
    const { user } = useAuth();
    const { amount } = useCart();
+   const { searchTerm, setSearchTerm } = useProduct();
+   const navigate = useNavigate();
    // console.log(pathname);
 
    const handleSearch = () => {
@@ -30,6 +33,7 @@ function NavList() {
    const closeSearch = () => {
       setSearch(false);
    };
+
    return (
       <>
          {/*--------- MENU -------*/}
@@ -56,6 +60,9 @@ function NavList() {
                         placeholder="search"
                         color="white-search"
                         rounded="3xl"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        navigate={() => navigate("/allProducts")}
                      />
                      <Icon icon={<XIcon />} func={closeSearch} />
                   </form>

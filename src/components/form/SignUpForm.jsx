@@ -1,5 +1,4 @@
 import logo from "../../assets/images/logo.png";
-import { useState } from "react";
 import { MailIcon, LockClosedIcon, UserIcon } from "@heroicons/react/outline";
 import { Form } from "../form/Form";
 import SubmitButton from "../form/SubmitButton";
@@ -83,7 +82,9 @@ function SignUpForm({ setType }) {
                      rounded="md"
                      icon={<LockClosedIcon />}
                   />
-                  <SubmitButton>Sign Up</SubmitButton>
+                  <SubmitButton className="orgColor font-bold rounded-md p-2 shadow-md text-white hover:translate-y-1 duration-75 mb-2">
+                     Sign Up
+                  </SubmitButton>
                   <div className="flex justify-between items-center">
                      <hr className="hr" />
                      <p className=" mr-3 ml-3 text-gray-light-dash">OR</p>

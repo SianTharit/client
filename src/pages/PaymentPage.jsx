@@ -7,10 +7,8 @@ import axios from "../config/axios";
 import { useCart } from "../contexts/CartContext";
 
 function PaymentPage() {
-   const { total } = useCart();
-   const [state, setState] = useState();
+   const { total, clearItem } = useCart();
    const [charge, setCharge] = useState(undefined);
-   const clearCart = () => {};
    const createCreditCardCharge = async (email, name, total, token) => {
       try {
          const res = await axios.post(
@@ -30,7 +28,8 @@ function PaymentPage() {
          const resData = res.data;
          console.log(resData);
          if (resData) {
-            setCharge({ resData });
+            setCharge({ ...resData });
+            clearItem();
          }
       } catch (err) {
          console.log(err);
@@ -38,20 +37,34 @@ function PaymentPage() {
    };
 
    return (
-      <div className="flex flex-col justify-center items-center gap-4">
-         <PaymentSum />
-         <FormPayment />
-         <ButtonCredit createCreditCardCharge={createCreditCardCharge} />
-         <ButtonBanking />
+      <div className="flex flex-col justify-center items-center gap-4 mt-2 py-24">
+         {!charge ? (
+            <>
+               <PaymentSum />
+               <FormPayment />
+               <ButtonCredit createCreditCardCharge={createCreditCardCharge} />
+            </>
+         ) : (
+            ""
+         )}
          {charge && (
-            <div className=" flex flex-col justify-center items-center gap-2">
+            <div className=" flex flex-col justify-center items-center gap-2 py-24">
                <h2 className=" text-coco">
                   Thank you for your payment with credit card.
                </h2>
                <p className=" text-lg text-coco">
                   Your payment amount is{" "}
-                  <span className=" text-blue-500">${total}.</span>
-                  Status <span>{charge.status}</span>
+                  <span className=" text-blue-500">${charge.amount}.</span>
+                  Status:
+                  <span
+                     className={
+                        charge.status === "successful"
+                           ? "text-green-500"
+                           : "text-red-500"
+                     }
+                  >
+                     {charge.status}
+                  </span>
                </p>
             </div>
          )}

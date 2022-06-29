@@ -2,12 +2,17 @@ import { useProduct } from "../../../contexts/ProductContext";
 import Spinner from "../../common/Spinner";
 import ButtonAddProduct from "./ButtonAddProduct";
 import ProductInfo from "./ProductInfo";
+import Modal from "../../ui/Modal";
 
 function AdminPage() {
    const { handleClickAdd, loading } = useProduct();
    return (
       <div>
-         {loading && <Spinner />}
+         {loading && (
+            <Modal showModal={loading}>
+               <Spinner />
+            </Modal>
+         )}
          <form className=" w-full" onSubmit={handleClickAdd}>
             <div className="grid grid-cols-8 gap-4">
                <ButtonAddProduct />
