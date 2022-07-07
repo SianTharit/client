@@ -67,7 +67,6 @@ function SidebarProducts({ productId, ProductImages }) {
    const { productById } = useProduct();
    const { addToCart } = useCart();
    const { price, discount, name } = productById;
-   console.log(productById, "///////////");
    const data = productById.ProductStocks
       ? productById?.ProductStocks?.map((item) => item?.size)
       : [];
